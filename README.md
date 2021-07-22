@@ -4,8 +4,8 @@ This repo will contains useful scripts
 
 ## Summary
 
-* [Export a db faster](#exportDb.sh)
-* [Import a db](#importDb.sh)
+* [Export a db faster](#exportdbsh)
+* [Import a db](#importdbsh)
 
 ### exportDb.sh
 
