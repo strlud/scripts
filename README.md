@@ -5,6 +5,7 @@ This repo will contains useful scripts
 ## Summary
 
 * [Export a db faster](#exportDb.sh)
+* [Import a db](#importDb.sh)
 
 ### exportDb.sh
 
@@ -20,8 +21,25 @@ Example :
 * Export from a docker compressed : ```./exportDb.sh --user=root --db=my_db --path=/tmp/dump --docker-name=db_docker -ziped```
 
 Good to know: 
-* ```--user``` is an alias of ```--db-user``` : is the name of your user db
-* ```--db``` is an alias of ```--db-name``` : is the name of your database
-* ```--path``` is an alias of ```--out-path``` : is the path on your local machin where you want the dump
-* ```--docker``` is an alias of ```--docker-name``` : is the name of your docker
-* ```-ziped``` is an option to tell to export the db compressed
+* ```--user``` is an alias of ```--db-user``` is the name of your user db
+* ```--db``` is an alias of ```--db-name``` is the name of your database
+* ```--path``` is an alias of ```--out-path``` is the path on your local machin where you want the dump
+* ```--docker``` is an alias of ```--docker-name``` is the name of your docker which contains the mysql server (optional)
+* ```-ziped``` is an option to tell to export the db compressed (optional)
+  
+### importDb.sh
+
+This script allow you to import a mysql database (for now)
+It should be used after the export. 
+
+Example of how to use it : 
+
+* Import database with a mysql local : ```./importDb.sh --user=root --db=my_db --path=/tmp/dump/my_db.sql```
+* Import database into a docker : ```./importDb.sh --user=root --db=my_db --path=/tmp/dump/my_db.sql --docker=gt_bdd```
+
+Good to know:
+* ```--user``` is an alias of ```--db-user``` is the name of your user db
+* ```--db``` is an alias of ```--db-name``` is the name of your database
+* ```--path``` is an alias of ```--from-path``` is the path on your local machin where the dump is. 
+  The extension must be ```.sql``` or ```.sql.gz```
+* ```--docker``` is an alias of ```--docker-name``` is the name of your docker which contains the mysql server (optional)
