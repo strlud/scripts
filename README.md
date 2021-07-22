@@ -23,4 +23,5 @@ Good to know:
 * ```--user``` is an alias of ```--db-user``` : is the name of your user db
 * ```--db``` is an alias of ```--db-name``` : is the name of your database
 * ```--path``` is an alias of ```--out-path``` : is the path on your local machin where you want the dump
-
+* ```--docker``` is an alias of ```--docker-name``` : is the name of your docker
+* ```-ziped``` is an option to tell to export the db compressed
