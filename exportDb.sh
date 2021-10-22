@@ -4,6 +4,7 @@ docker_name=''
 db_user=''
 db_name=''
 out_path=''
+db_type=''
 ziped=false
 
 for i in "$@"
@@ -25,6 +26,10 @@ case $i in
     docker_name="${i#*=}"
     shift # past argument=value
     ;;
+    --db-type=*)
+      db_type="${i#*=}"
+      shift # past argument=value
+      ;;
     -ziped)
     ziped=true
     shift # past argument=value
@@ -57,19 +62,30 @@ fi
 
 if [ "$docker_name" != '' ]; then
   info="dump from docker"
-  if [ "$ziped" == true ]; then
-    echo "${info} compressed"
-    docker exec -i "${docker_name}" mysqldump -u"${db_user}" -p "${db_name}" | gzip > "${export_db_name}.${extension}"
-  else
-    docker exec -i "${docker_name}" mysqldump -u"${db_user}" -p "${db_name}" > "${export_db_name}.${extension}"
+
+  if [ "$db_type" == 'mysql' ]; then
+    if [ "$ziped" == true ]; then
+        echo "${info} compressed"
+        docker exec -i "${docker_name}" mysqldump -u"${db_user}" -p "${db_name}" | gzip > "${export_db_name}.${extension}"
+    else
+        docker exec -i "${docker_name}" mysqldump -u"${db_user}" -p "${db_name}" > "${export_db_name}.${extension}"
+    fi
+  elif [ "$db_type" == 'pgsql' ]; then
+    docker exec "${docker_name}" pg_dump -c -U "${db_user}" "${db_name}" > "${export_db_name}.pgsql"
   fi
+
 else
   info="dump from local"
-  if [ "$ziped" == true ]; then
-    echo "${info} compressed"
-    mysqldump -u"${db_user}" -p "${db_name}" | gzip > "${export_db_name}.${extension}"
-  else
-    mysqldump -u"${db_user}" -p "${db_name}" > "${export_db_name}.${extension}"
+
+  if [ "$db_type" == 'mysql' ]; then
+    if [ "$ziped" == true ]; then
+      echo "${info} compressed"
+      mysqldump -u"${db_user}" -p "${db_name}" | gzip > "${export_db_name}.${extension}"
+    else
+      mysqldump -u"${db_user}" -p "${db_name}" > "${export_db_name}.${extension}"
+    fi
+  elif [ "$db_type" == 'pgsql' ]; then
+      pg_dump -c -U "${db_user}" "${db_name}" > "${export_db_name}.pgsql"
   fi
 fi
 
