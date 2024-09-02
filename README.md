@@ -12,8 +12,8 @@ This repo will contains useful scripts
 * Clone this repository : ```git clone git@github.com:strlud/scripts.git```
 * Add the script executable : ``chmod +x importDb.sh exportDb.sh``
 * If you want to use these scripts everywhere on your machine, you can create a symlink (or cp the script) in your ``/usr/local/bin`` for example :
-  * ``ln -s "$PWD/exportDb.sh" /usr/local/bin/exportDb``
-  * ``ln -s "$PWD/importDb.sh" /usr/local/bin/importDb``
+  * ``sudo cp "$PWD/exportDb.sh" /usr/local/bin/exportDb``
+  * ``sudo cp "$PWD/importDb.sh" /usr/local/bin/importDb``
 * You can now do ``exportDb -h`` or ``importDb -h`` to see help message everywhere
 
 ### exportDb.sh
